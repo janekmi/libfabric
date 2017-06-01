@@ -338,7 +338,6 @@ static int fi_ibv_eq_close(fid_t fid)
 
 	close(eq->epfd);
 
-	fastlock_acquire(&eq->lock);
 	while(!dlistfd_empty(&eq->list_head)) {
 		entry = container_of(eq->list_head.list.next, struct fi_ibv_eq_entry, item);
 		dlistfd_remove(eq->list_head.list.next, &eq->list_head);
