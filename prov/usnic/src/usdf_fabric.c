@@ -668,6 +668,7 @@ usdf_getinfo(uint32_t version, const char *node, const char *service,
 		if (ret != 0) {
 			USDF_DBG("getaddrinfo failed: %d: <%s>\n", ret,
 				 gai_strerror(ret));
+			ret = -FI_EINVAL;
 			goto fail;
 		}
 
