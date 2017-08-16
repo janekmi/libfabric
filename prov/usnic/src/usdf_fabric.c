@@ -668,7 +668,11 @@ usdf_getinfo(uint32_t version, const char *node, const char *service,
 		if (ret != 0) {
 			USDF_DBG("getaddrinfo failed, likely bad node/service specified (%s:%s)\n",
 				node, service);
-			ret = -errno;
+			if (ret == EAI_SYSTEM) {
+				ret = -errno;
+			} else {
+				ret = -EINVAL;
+			}
 			goto fail;
 		}
 		if (flags & FI_SOURCE) {
